@@ -1,6 +1,7 @@
 package com.example.newsapp
 
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import com.android.volley.toolbox.JsonObjectRequest
 
 class MainActivity : AppCompatActivity(), newsItemClicked {
@@ -50,6 +52,8 @@ class MainActivity : AppCompatActivity(), newsItemClicked {
     }
 
     override fun onItemClicked(items: NewsData) {
-        Toast.makeText(this,"Item $items, is clicked",Toast.LENGTH_LONG).show()
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(this, Uri.parse(items.url))
     }
 }
